@@ -23,12 +23,21 @@ function CreateArea(props) {
   }
 
   function submitNote(event) {
+    event.preventDefault();
+
+    // Validation: Note must have either title or content
+    if (note.title.trim() === "" && note.content.trim() === "") {
+      alert("Note cannot be empty!");
+      return;
+    }
+
     props.onAdd(note);
+
+    // Reset form after submission
     setNote({
       title: "",
       content: ""
     });
-    event.preventDefault();
   }
 
   function expand() {
@@ -46,7 +55,6 @@ function CreateArea(props) {
             placeholder="Title"
           />
         )}
-
         <textarea
           name="content"
           onClick={expand}
